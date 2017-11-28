@@ -1,7 +1,12 @@
-package entidade;
+package aplicativo;
 
 import java.util.ArrayList;
 import java.util.Random;
+
+import entidade.Compra;
+import entidade.Empregada;
+import entidade.Produto;
+
 import java.util.List;
 
 public class Aplicativo {
