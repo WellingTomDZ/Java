@@ -1,38 +1,31 @@
 package com.senac.lojaincomoda.domain;
 
 import java.io.Serializable;
-import java.util.HashSet;
-import java.util.Set;
 
-import javax.persistence.CollectionTable;
-import javax.persistence.ElementCollection;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToOne;
 import javax.persistence.Transient;
 
-import com.senac.lojaincomoda.domain.enums.TipoCliente;
-
 @Entity
-public class Cliente implements Serializable {
+public class Estado implements Serializable {
 
 	@Transient
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
+	@Column(nullable = false, length = 150)
 	private String nome;
-	private String email;
-	private String cpf_cnpj;
-	private Integer tipo;
 
-	@ElementCollection
-	@CollectionTable(name = "TELEFONE")
-	private Set<String> telefones = new HashSet<>();
+	@OneToOne
+	private Endereco endereco;
 
-	public Cliente() {
+	public Estado() {
 
 	}
 
@@ -52,28 +45,12 @@ public class Cliente implements Serializable {
 		this.nome = nome;
 	}
 
-	public String getEmail() {
-		return email;
+	public Endereco getEndereco() {
+		return endereco;
 	}
 
-	public void setEmail(String email) {
-		this.email = email;
-	}
-
-	public String getCpf_cnpj() {
-		return cpf_cnpj;
-	}
-
-	public void setCpf_cnpj(String cpf_cnpj) {
-		this.cpf_cnpj = cpf_cnpj;
-	}
-
-	public TipoCliente getTipo() {
-		return TipoCliente.toEnum(tipo);
-	}
-
-	public void setTipo(TipoCliente tipo) {
-		this.tipo = tipo.getCode();
+	public void setEndereco(Endereco endereco) {
+		this.endereco = endereco;
 	}
 
 	@Override
@@ -92,7 +69,7 @@ public class Cliente implements Serializable {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		Cliente other = (Cliente) obj;
+		Estado other = (Estado) obj;
 		if (id == null) {
 			if (other.id != null)
 				return false;
@@ -100,5 +77,4 @@ public class Cliente implements Serializable {
 			return false;
 		return true;
 	}
-
 }
